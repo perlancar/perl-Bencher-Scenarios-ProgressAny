@@ -14,12 +14,12 @@ our $scenario = {
         {
             name => '1000x update()',
             module => 'Progress::Any',
-            code_template => q(use Progress::Any '$progress'; $progress->target(1000); for(1..1000) { $progress->update() } $progress->finish),
+            code_template => q($main::progress ||= do { require Progress::Any; Progress::Any->get_indicator(task=>"") }; $main::progress->target(1000); for(1..1000) { $main::progress->update() } $main::progress->finish),
         },
         {
             name => '1000x update(pos + message)',
             module => 'Progress::Any',
-            code_template => q(use Progress::Any '$progress'; $progress->target(1000); for(1..1000) { $progress->update(pos=>$_, message=>$_) } $progress->finish),
+            code_template => q($main::progress ||= do { require Progress::Any; Progress::Any->get_indicator(task=>"") }; $main::progress->target(1000); for(1..1000) { $main::progress->update(pos=>$_, message=>$_) } $main::progress->finish),
         },
     ],
 };
